@@ -1,18 +1,23 @@
 package guessGame;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
 public class TaskFactory {
 
-	private final JPanel upperPanel;
-	private final JPanel lowerPanel;
+	/*
+	 * this class has 2 arraylists that are composed out off panels for top and
+	 * bottom. this class is responsible for picking out the panels and creating
+	 * a task out of them
+	 */
+	final private Task task;
+	private final List<JPanel> upperPanels;
+	private final List<JPanel> lowerPanels;
 
-	ArrayList<JPanel> upperPanels;
-	ArrayList<JPanel> lowerPanels;
-
-	public TaskFactory() {
+	public TaskFactory() throws ClassNotFoundException {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
@@ -21,22 +26,38 @@ public class TaskFactory {
 		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
 		 */
 
-		this.upperPanel = new UpperPanel_1();
-		this.lowerPanel = new LowerPanel_1();
+		this.upperPanels = new ArrayList<JPanel>();
+		this.lowerPanels = new ArrayList<JPanel>();
+
+		// upperPanels = getAllFileNames();
+		final Random r = new Random();
+		this.upperPanels.add(new UpperPanel_1());
+		this.upperPanels.add(new UpperPanel_2());
+
+		this.lowerPanels.add(new LowerPanel_1());
+
+		final JPanel upperPanel = upperPanels.get(r.nextInt(upperPanels.size()));
+		final JPanel lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
+
+		this.task = new Task(upperPanel, lowerPanel);
 
 		// upperPanels.add(this.upperPanel);
 		// lowerPanels.add(this.lowerPanel);
 
-		// final Random r = new Random();
+		//
 
 	}
 
-	public JPanel getUpperPanel() {
-		return upperPanel;
+	public Task getTask() {
+		return task;
 	}
 
-	public JPanel getLowerPanel() {
-		return lowerPanel;
+	public List<JPanel> getUpperPanels() {
+		return upperPanels;
+	}
+
+	public List<JPanel> getLowerPanels() {
+		return lowerPanels;
 	}
 
 }

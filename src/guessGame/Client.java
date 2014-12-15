@@ -10,7 +10,6 @@ import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Client extends JFrame {
@@ -37,24 +36,22 @@ public class Client extends JFrame {
 		this.add(lowerPanel, BorderLayout.SOUTH);
 
 		this.setVisible(true);
-		Socket socket;
-		try {
-			socket = new Socket("localhost", 8080);
-			System.out.println("Connection Established");
-			in = new ObjectInputStream(socket.getInputStream());
-			System.out.println("reached");
-
-			lowerPanel = (JPanel) in.readObject();
-			this.add(lowerPanel, BorderLayout.SOUTH);
-			this.repaint();
-
-			JOptionPane.showMessageDialog(null, lowerPanel != null);
-			System.out.println("boo");
-
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		final Socket socket;
+		/*
+		 * try { socket = new Socket("localhost", 8080);
+		 * System.out.println("Connection Established"); in = new
+		 * ObjectInputStream(socket.getInputStream());
+		 * System.out.println("reached");
+		 * 
+		 * lowerPanel = (JPanel) in.readObject(); this.add(lowerPanel,
+		 * BorderLayout.SOUTH); this.repaint();
+		 * 
+		 * JOptionPane.showMessageDialog(null, lowerPanel != null);
+		 * System.out.println("boo");
+		 * 
+		 * } catch (final IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 
 	}
 
@@ -62,6 +59,5 @@ public class Client extends JFrame {
 
 		final TaskFactory task = new TaskFactory();
 
-		new Client(task.getUpperPanel(), task.getLowerPanel());
 	}
 }
