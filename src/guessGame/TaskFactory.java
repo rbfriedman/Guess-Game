@@ -1,5 +1,8 @@
 package guessGame;
 
+import guessGame.paint.message.LineMessage;
+
+import java.awt.Color;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -16,10 +19,9 @@ public class TaskFactory {
 	 * a task out of them
 	 */
 	final private Task task;
-	private final List<JPanel> upperPanels;
-	private final List<JPanel> lowerPanels;
+	private final List<Task> challenges;
 
-	public TaskFactory() throws Exception {
+	public TaskFactory()  {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
@@ -28,20 +30,11 @@ public class TaskFactory {
 		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
 		 */
 
-		this.upperPanels = new ArrayList<JPanel>();
-		this.lowerPanels = new ArrayList<JPanel>();
-
+		challenges = new ArrayList<Task>();
+		challenges.add(new Task(new LineMessage(0, 200, 200, 400, Color.BLACK.getRGB(), 30),"line"));
+		challenges.add(new Task(new LineMessage(50, 200, 100, 400, Color.BLACK.getRGB(), 10),"line"));
 		// upperPanels = getAllFileNames();
-		final Random r = new Random();
-		this.upperPanels.add(new UpperPanel_1());
-		this.upperPanels.add(new UpperPanel_2());
-
-		this.lowerPanels.add(new LowerPanel_1());
-
-		final JPanel upperPanel = upperPanels.get(r.nextInt(upperPanels.size()));
-		final JPanel lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
-
-		this.task = new Task(upperPanel, lowerPanel);
+		
 
 		// upperPanels.add(this.upperPanel);
 		// lowerPanels.add(this.lowerPanel);
@@ -51,15 +44,8 @@ public class TaskFactory {
 	}
 
 	public Task getTask() {
-		return task;
+		return challenges.get(0);
 	}
 
-	public List<JPanel> getUpperPanels() {
-		return upperPanels;
-	}
-
-	public List<JPanel> getLowerPanels() {
-		return lowerPanels;
-	}
 
 }

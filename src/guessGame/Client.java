@@ -1,7 +1,10 @@
 package guessGame;
 
+import guessGame.paint.message.PaintMessage;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,27 +19,28 @@ import javax.swing.JPanel;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
+import org.eclipse.jetty.http.HttpTester.Request;
 
-public class Client extends JFrame {
+public class Client extends JFrame implements PaintMessage {
 
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private final JPanel upperPanel;
-	private final JPanel lowerPanel;
+	private  JPanel upperPanel;
+	private JPanel lowerPanel;
 	private JButton button;
 
-	public Client(JPanel upperPanel, JPanel lowerPanel) throws Exception {
+	public Client() throws Exception {
 
 		this.setTitle("Client Game");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 
-		this.upperPanel = upperPanel;
+		this.upperPanel = new JPanel();
 		this.upperPanel.setPreferredSize(new Dimension(800, 600));
 		this.add(upperPanel, BorderLayout.NORTH);
 
-		this.lowerPanel = lowerPanel;
+		this.lowerPanel = new JPanel();
 		lowerPanel.setPreferredSize(new Dimension(800, 100));
 		this.add(lowerPanel, BorderLayout.SOUTH);
 		System.out.println("works? ");
@@ -54,8 +58,8 @@ public class Client extends JFrame {
 		bis = new ByteArrayInputStream(res.getContent());
 		ois = new ObjectInputStream(bis);
 		obj = ois.readObject();
-		LinkedList<String> g = (LinkedList<String>) obj;
-		System.out.println(g.toString());
+		
+		addTask(obj);
 
 		/*
 		 * try { socket = new Socket("localhost", 8080);
@@ -75,15 +79,28 @@ public class Client extends JFrame {
 
 	}
 
+	private void addTask(Object obj) {
+		// TODO Auto-generated method stub
+		Task g = (Task) obj;
+		PaintMessage h = (PaintMessage) g.getChallenge();
+		
+	}
+
 	public static void main(String[] main) throws UnknownHostException,
 			IOException, ClassNotFoundException {
 
 		try {
-			final TaskFactory task = new TaskFactory();
+			new Client();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void apply(Graphics2D g2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

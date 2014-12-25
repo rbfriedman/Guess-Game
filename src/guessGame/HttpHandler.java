@@ -30,14 +30,11 @@ public class HttpHandler extends AbstractHandler {
 		response.setContentType("application/octet-stream");
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");
-		LinkedList<String> m = new LinkedList<String>();
-		m.add("Greek Yogurt");
-		m.add("la");
-		request.setAttribute("myCanvas", m);
-		request.setAttribute("LL", m);
+		TaskFactory tf = new TaskFactory();
+		
 	
 		ObjectOutputStream out = new ObjectOutputStream(response.getOutputStream());
-		out.writeObject(m);
+		out.writeObject(tf.getTask());
 		out.flush();
 		//response.getWriter().println(
 				//( request.getAttribute("myCanvas")));

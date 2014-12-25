@@ -1,23 +1,16 @@
 package guessGame;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 
-import javax.swing.JPanel;
+public class Task implements Challenge{
 
-public class Task {
+	private Object challenge;
+	private String answer;
 
-	private final JPanel upperPanel;
-	private final JPanel lowerPanel;
+	public Task(Object challenge, String answer)  {
 
-	public Task(JPanel upperPanel, JPanel lowerPanel) throws Exception {
-
-		this.upperPanel = upperPanel;
-		this.lowerPanel = lowerPanel;
-		final String answer = ((UpperPanel) upperPanel).getAnswer();
-		((LowerPanel_1) this.lowerPanel).setAnswer(answer);
-
-		new Client(upperPanel, lowerPanel);
+		this.challenge = challenge;
+		this.answer = answer;
+		
 	}
 
 	public boolean isCorrect() {
@@ -25,12 +18,18 @@ public class Task {
 
 	}
 
-	public JPanel getUpperPanel() {
-		return upperPanel;
+	@Override
+	public Object getChallenge() {
+		// TODO Auto-generated method stub
+		return challenge;
 	}
 
-	public JPanel getLowerPanel() {
-		return lowerPanel;
+	@Override
+	public String getAnswer() {
+		// TODO Auto-generated method stub
+		return answer;
 	}
+
+
 
 }

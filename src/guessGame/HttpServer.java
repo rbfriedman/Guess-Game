@@ -35,7 +35,6 @@ public class HttpServer {
         context.addServlet(new ServletHolder(new HelloServlet("Buongiorno Mondo")),"/it/*");
         context.addServlet(new ServletHolder(new HelloServlet("Bonjour le Monde")),"/fr/*");
  */	
-        context.setAttribute("LL", new JPanel());
 		sessions.setHandler(new HttpHandler());
 		server.start();
 		server.join();

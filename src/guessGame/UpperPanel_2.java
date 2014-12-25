@@ -1,5 +1,10 @@
 package guessGame;
 
+import guessGame.paint.message.LineMessage;
+import guessGame.paint.message.PaintMessage;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class UpperPanel_2 extends UpperPanel {
@@ -14,6 +19,12 @@ public class UpperPanel_2 extends UpperPanel {
 	@Override
 	public String getAnswer() {
 		return answer;
+	}
+
+	@Override
+	public PaintMessage getMessage() {
+		// TODO Auto-generated method stub
+		return new LineMessage(0, 200, 200, 400, Color.BLACK.getRGB(), 30);
 	}
 
 	/*
