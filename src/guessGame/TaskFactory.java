@@ -1,5 +1,7 @@
 package guessGame;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,12 +19,12 @@ public class TaskFactory {
 	private final List<JPanel> upperPanels;
 	private final List<JPanel> lowerPanels;
 
-	public TaskFactory() throws ClassNotFoundException {
+	public TaskFactory() throws Exception {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
 		 * 
-		 * //this.upperPanel = upperPanels.get(r.nextInt(upperPanels.size()));
+		 * //this.upperPanel = upperPanelSs.get(r.nextInt(upperPanels.size()));
 		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
 		 */
 
