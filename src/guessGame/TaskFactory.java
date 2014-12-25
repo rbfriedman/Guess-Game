@@ -1,6 +1,8 @@
 package guessGame;
 
 import guessGame.paint.message.LineMessage;
+import guessGame.paint.message.PaintType;
+import guessGame.paint.message.ShapeMessage;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -20,6 +22,7 @@ public class TaskFactory {
 	 */
 	private Task task;
 	private List<Task> challenges;
+	private int currentIndex = 0;
 
 	public TaskFactory()  {
 		/*
@@ -31,8 +34,10 @@ public class TaskFactory {
 		 */
 
 		challenges = new ArrayList<Task>();
-		challenges.add(new Task(new LineMessage(0, 200, 200, 400, Color.BLACK.getRGB(), 30),"line"));
-		challenges.add(new Task(new LineMessage(50, 200, 100, 400, Color.BLACK.getRGB(), 10),"line"));
+		challenges.add(new Task(new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
+		challenges.add(new Task(new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
+		challenges.add(new Task(new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
+		challenges.add(new Task(new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
 		// upperPanels = getAllFileNames();
 		
 
@@ -44,7 +49,8 @@ public class TaskFactory {
 	}
 
 	public Task getTask() {
-		return challenges.get(0);
+		currentIndex = (currentIndex+1)%challenges.size();
+		return challenges.get(currentIndex);
 	}
 	
 	public Task getRandomTask(){

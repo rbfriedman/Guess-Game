@@ -1,34 +1,34 @@
 package guessGame;
 
+import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
-import guessGame.paint.message.PaintMessageFactory;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
-import org.eclipse.jetty.http.HttpTester.Request;
 
-public class Client extends JFrame{
+public class Client extends JFrame {
 
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private UpperPanel upperPanel;
 	private LowerPanel lowerPanel;
-	private JButton button;
+	private JButton nextButton;
+	private HttpClient client;
 
 	public Client() throws Exception {
 
@@ -38,30 +38,22 @@ public class Client extends JFrame{
 		this.setSize(800, 600);
 
 		this.upperPanel = new UpperPanel();
-		this.upperPanel.setPreferredSize(new Dimension(800, 600));
+		this.upperPanel.setPreferredSize(new Dimension(600, 600));
 		this.add(upperPanel, BorderLayout.NORTH);
-
+		
 		this.lowerPanel = new LowerPanel();
-		lowerPanel.setPreferredSize(new Dimension(800, 100));
+		this.nextButton = new JButton("Next");
+		this.nextButton.addActionListener(new NextTaskListener());
+		lowerPanel.add(nextButton, BorderLayout.WEST);
+		lowerPanel.setPreferredSize(new Dimension(600, 100));
 		this.add(lowerPanel, BorderLayout.SOUTH);
+		
 		System.out.println("works? ");
 		this.setVisible(true);
-		HttpClient client = new HttpClient();
+		client = new HttpClient();
 		client.start();
 
-		ContentResponse res = client.GET("http://localhost:8080");
-		System.out.println(res.getRequest().getAttributes());
-		System.out.println(res.getRequest().getAttributes());
-		Object m = res.getHeaders();
-		Object obj = null;
-		ByteArrayInputStream bis = null;
-		ObjectInputStream ois = null;
-			bis = new ByteArrayInputStream(res.getContent());
-			ois = new ObjectInputStream(bis);
-			obj = ois.readObject();
-
-			addPaintTask(obj);
-		
+		readInTask(client);
 
 		/*
 		 * try { socket = new Socket("localhost", 8080);
@@ -81,13 +73,40 @@ public class Client extends JFrame{
 
 	}
 
+	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
+		this.upperPanel.repaint(new ClearMessage());
+		ContentResponse res = client.GET("http://localhost:8080");
+		System.out.println(res.getRequest().getAttributes());
+		System.out.println(res.getRequest().getAttributes());
+		Object m = res.getHeaders();
+		Object obj = null;
+		
+		try {
+			ObjectInputStream inStream = new ObjectInputStream(
+					new ByteArrayInputStream(res.getContent()));
+			obj = inStream.readObject();
+
+			addPaintTask(obj);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+	}
+
 	private void addPaintTask(Object obj) {
+		this.upperPanel.removeAll();
 		Task g = (Task) obj;
 		PaintMessage h = (PaintMessage) g.getChallenge();
 		String answer = g.getAnswer();
 		this.lowerPanel.setAnswer(answer);
-		PaintMessageFactory.receiveMessage(h);
 		this.upperPanel.repaint(h);
+		this.repaint();
 	}
 
 	private void addTask(Object obj) {
@@ -95,6 +114,22 @@ public class Client extends JFrame{
 		Task g = (Task) obj;
 		PaintMessage h = (PaintMessage) g.getChallenge();
 
+	}
+	
+	private class NextTaskListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			try {
+				readInTask(client);
+			} catch (InterruptedException | ExecutionException
+					| TimeoutException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 
 	public static void main(String[] main) throws UnknownHostException,

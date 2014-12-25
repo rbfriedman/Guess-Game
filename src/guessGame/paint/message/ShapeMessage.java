@@ -4,9 +4,10 @@ package guessGame.paint.message;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 
 
-public class ShapeMessage implements PaintMessage
+public class ShapeMessage implements PaintMessage, Serializable
 {
 	private PaintType type;
 	private int x;

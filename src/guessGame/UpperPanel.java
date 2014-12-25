@@ -19,7 +19,6 @@ public class UpperPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawRect(20, 20, 100, 100);
 		this.pm.apply((Graphics2D) g);
 		System.out.println(pm.toString());
 		
