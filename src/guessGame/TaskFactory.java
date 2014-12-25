@@ -18,8 +18,8 @@ public class TaskFactory {
 	 * bottom. this class is responsible for picking out the panels and creating
 	 * a task out of them
 	 */
-	final private Task task;
-	private final List<Task> challenges;
+	private Task task;
+	private List<Task> challenges;
 
 	public TaskFactory()  {
 		/*
@@ -45,6 +45,11 @@ public class TaskFactory {
 
 	public Task getTask() {
 		return challenges.get(0);
+	}
+	
+	public Task getRandomTask(){
+		int index = (int)(Math.random() * challenges.size() + 1);
+		return challenges.get(index);
 	}
 
 

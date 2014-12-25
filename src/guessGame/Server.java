@@ -34,7 +34,7 @@ public class Server {
 		//this.upperPanel = new JPanel();
 		//this.upperPanel.add(new UpperPanel_1());
 		
-		this.lowerPanel = new LowerPanel_1();
+		this.lowerPanel = new LowerPanel();
 		
 		//this.add(upperPanel);
 		//this.add(lowerPanel);

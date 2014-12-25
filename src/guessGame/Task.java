@@ -1,12 +1,16 @@
 package guessGame;
 
+import java.io.Serializable;
 
-public class Task implements Challenge{
+import guessGame.paint.message.PaintMessage;
 
-	private Object challenge;
+
+public class Task implements Challenge, Serializable{
+
+	private PaintMessage challenge;
 	private String answer;
 
-	public Task(Object challenge, String answer)  {
+	public Task(PaintMessage challenge, String answer)  {
 
 		this.challenge = challenge;
 		this.answer = answer;

@@ -3,8 +3,10 @@ package guessGame.paint.message;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 
-public class LineMessage implements PaintMessage
+
+public class LineMessage implements PaintMessage,Serializable
 {
 	private int x1;
 	private int y1;
@@ -30,6 +32,7 @@ public class LineMessage implements PaintMessage
 		g.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		g.drawLine(x1, y1, x2, y2);
 	}
+
 
 	public int getX1()
 	{

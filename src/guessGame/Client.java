@@ -1,6 +1,7 @@
 package guessGame;
 
 import guessGame.paint.message.PaintMessage;
+import guessGame.paint.message.PaintMessageFactory;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,12 +22,12 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.http.HttpTester.Request;
 
-public class Client extends JFrame implements PaintMessage {
+public class Client extends JFrame{
 
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private  JPanel upperPanel;
-	private JPanel lowerPanel;
+	private UpperPanel upperPanel;
+	private LowerPanel lowerPanel;
 	private JButton button;
 
 	public Client() throws Exception {
@@ -36,11 +37,11 @@ public class Client extends JFrame implements PaintMessage {
 		this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 
-		this.upperPanel = new JPanel();
+		this.upperPanel = new UpperPanel();
 		this.upperPanel.setPreferredSize(new Dimension(800, 600));
 		this.add(upperPanel, BorderLayout.NORTH);
 
-		this.lowerPanel = new JPanel();
+		this.lowerPanel = new LowerPanel();
 		lowerPanel.setPreferredSize(new Dimension(800, 100));
 		this.add(lowerPanel, BorderLayout.SOUTH);
 		System.out.println("works? ");
@@ -55,11 +56,12 @@ public class Client extends JFrame implements PaintMessage {
 		Object obj = null;
 		ByteArrayInputStream bis = null;
 		ObjectInputStream ois = null;
-		bis = new ByteArrayInputStream(res.getContent());
-		ois = new ObjectInputStream(bis);
-		obj = ois.readObject();
+			bis = new ByteArrayInputStream(res.getContent());
+			ois = new ObjectInputStream(bis);
+			obj = ois.readObject();
+
+			addPaintTask(obj);
 		
-		addTask(obj);
 
 		/*
 		 * try { socket = new Socket("localhost", 8080);
@@ -79,11 +81,20 @@ public class Client extends JFrame implements PaintMessage {
 
 	}
 
+	private void addPaintTask(Object obj) {
+		Task g = (Task) obj;
+		PaintMessage h = (PaintMessage) g.getChallenge();
+		String answer = g.getAnswer();
+		this.lowerPanel.setAnswer(answer);
+		PaintMessageFactory.receiveMessage(h);
+		this.upperPanel.repaint(h);
+	}
+
 	private void addTask(Object obj) {
 		// TODO Auto-generated method stub
 		Task g = (Task) obj;
 		PaintMessage h = (PaintMessage) g.getChallenge();
-		
+
 	}
 
 	public static void main(String[] main) throws UnknownHostException,
@@ -98,9 +109,4 @@ public class Client extends JFrame implements PaintMessage {
 
 	}
 
-	@Override
-	public void apply(Graphics2D g2) {
-		// TODO Auto-generated method stub
-		
-	}
 }
