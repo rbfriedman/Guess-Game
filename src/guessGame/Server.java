@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 public class Server {
 
 	private JPanel upperPanel;
@@ -33,7 +34,7 @@ public class Server {
 		//this.upperPanel = new JPanel();
 		//this.upperPanel.add(new UpperPanel_1());
 		
-		this.lowerPanel = new LowerPanel_1();
+		this.lowerPanel = new LowerPanel();
 		
 		//this.add(upperPanel);
 		//this.add(lowerPanel);
