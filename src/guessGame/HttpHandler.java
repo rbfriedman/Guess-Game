@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JPanel;
 
+import org.eclipse.jetty.client.HttpExchange;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -30,7 +31,7 @@ public class HttpHandler extends AbstractHandler {
 		response.setContentType("application/octet-stream");
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");
-		
+		//HttpExchange g = new HttpExchange(null, null, null);
 		
 	
 		ObjectOutputStream out = new ObjectOutputStream(response.getOutputStream());
