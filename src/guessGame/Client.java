@@ -76,6 +76,9 @@ public class Client extends JFrame {
 	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
 		this.upperPanel.repaint(new ClearMessage());
 		ContentResponse res = client.GET("http://localhost:8080");
+		//mult handler
+		//for a specific url
+		//
 		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
 		Object m = res.getHeaders();

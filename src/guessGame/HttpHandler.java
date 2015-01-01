@@ -26,7 +26,6 @@ public class HttpHandler extends AbstractHandler {
 		boolean create = "true".equals(request.getParameter("create"));
 
 		String user = request.getParameter("user");
-		String pwd = request.getParameter("pwd");
 		response.setContentType("application/octet-stream");
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");
