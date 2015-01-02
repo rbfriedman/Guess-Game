@@ -24,7 +24,7 @@ public class HttpServer {
 
 		server.setSessionIdManager(sessionIdManager);
 
-		server.setHandler(new MasterHttpHandler());
+		server.setHandler(new MasterHttpHandler(new TaskFactory()));
 		server.start();
 		server.join();
 	}
