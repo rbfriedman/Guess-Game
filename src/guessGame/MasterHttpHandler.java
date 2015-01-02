@@ -11,7 +11,12 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 public class MasterHttpHandler extends AbstractHandler {
-	private final TaskFactory tf = new TaskFactory();
+
+	private TaskFactory tf;
+
+	public MasterHttpHandler(TaskFactory tf) {
+		tf = new TaskFactory();
+	}
 
 	@Override
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +32,7 @@ public class MasterHttpHandler extends AbstractHandler {
 		 * System.out.println(g.nextElement()); }
 		 */
 
-		response.setContentType("application/octet-stream");
+		response.setContentType(tf.getTask());
 		response.setStatus(HttpServletResponse.SC_OK);
 		// response.getWriter().println("Hello World");
 		// HttpExchange g = new HttpExchange(null, null, null);
