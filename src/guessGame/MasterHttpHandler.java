@@ -17,24 +17,29 @@ import org.eclipse.jetty.client.HttpExchange;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 
 
 public class MasterHttpHandler extends AbstractHandler  {
 	private TaskFactory tf = new TaskFactory();
+
+		
 	@Override
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		 Logger.logMsg(1, "here");
 		String user = request.getParameter("user");
 		System.out.println(request.getAttribute(user));
 		String pwd = request.getParameter("pwd");
-		
+		/*
 		HttpSession session = request.getSession();
 		Enumeration<String> g = session.getAttributeNames();
 		while(g.hasMoreElements()){
 			System.out.println(g.nextElement());
 		}
+		*/
 		
 		
 		
