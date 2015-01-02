@@ -10,13 +10,16 @@ import org.eclipse.jetty.server.session.HashSessionIdManager;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 
 public class HttpServer {
-
 	public static void main(String args[]) throws Exception {
 		Server server = new Server(8080);
 		 // Specify the Session ID Manager
+		
         HashSessionIdManager sessionIdManager = new HashSessionIdManager();
+       
         //server.setSessionIdManager(idmanager);
 
         // Sessions are bound to a context.
@@ -41,5 +44,5 @@ public class HttpServer {
 		server.start();
 		server.join();
 	}
-	
+
 }
