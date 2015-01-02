@@ -23,6 +23,7 @@ public class TaskFactory {
 	private Task task;
 	private List<Task> challenges;
 	private int currentIndex = 0;
+	private TaskFactoryType tfType;
 
 	public TaskFactory()  {
 		/*
@@ -57,6 +58,13 @@ public class TaskFactory {
 		int index = (int)(Math.random() * challenges.size() + 1);
 		return challenges.get(index);
 	}
+
+	public TaskFactoryType getContentType() {
+		// TODO Auto-generated method stub
+		return tfType;
+	}
+	
+	
 
 
 }

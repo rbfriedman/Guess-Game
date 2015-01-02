@@ -22,8 +22,11 @@ import com.sun.media.jfxmedia.logging.Logger;
 
 
 public class MasterHttpHandler extends AbstractHandler  {
-	private TaskFactory tf = new TaskFactory();
-
+	private TaskFactory tf;
+	
+	public MasterHttpHandler(TaskFactory tf){
+		tf = new TaskFactory();
+	}
 		
 	@Override
 	public void handle(String target, Request baseRequest,
@@ -43,7 +46,7 @@ public class MasterHttpHandler extends AbstractHandler  {
 		
 		
 		
-		response.setContentType("application/octet-stream");
+		response.setContentType(tf.toString());
 		response.setStatus(HttpServletResponse.SC_OK);
 		//response.getWriter().println("Hello World");
 		//HttpExchange g = new HttpExchange(null, null, null);

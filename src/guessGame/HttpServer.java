@@ -40,7 +40,7 @@ public class HttpServer {
         context.addServlet(new ServletHolder(new HelloServlet("Buongiorno Mondo")),"/it/*");
         context.addServlet(new ServletHolder(new HelloServlet("Bonjour le Monde")),"/fr/*");
  */	
-		server.setHandler(new MasterHttpHandler());
+		server.setHandler(new MasterHttpHandler(new TaskFactory()));
 		server.start();
 		server.join();
 	}
