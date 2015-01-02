@@ -20,9 +20,11 @@ import javax.swing.JFrame;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
+import org.eclipse.jetty.client.api.Request;
 
 public class Client extends JFrame {
 
+	private static final long serialVersionUID = -6463718980738496419L;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private UpperPanel upperPanel;
@@ -55,27 +57,14 @@ public class Client extends JFrame {
 
 		readInTask(client);
 
-		/*
-		 * try { socket = new Socket("localhost", 8080);
-		 * System.out.println("Connection Established"); in = new
-		 * ObjectInputStream(socket.getInputStream());
-		 * System.out.println("reached");
-		 * 
-		 * lowerPanel = (JPanel) in.readObject(); this.add(lowerPanel,
-		 * BorderLayout.SOUTH); this.repaint();
-		 * 
-		 * JOptionPane.showMessageDialog(null, lowerPanel != null);
-		 * System.out.println("boo");
-		 * 
-		 * } catch (final IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
-
+	
 	}
 
 	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
 		this.upperPanel.repaint(new ClearMessage());
-		ContentResponse res = client.GET("http://localhost:8080");
+		Request req = client.POST("http://localhost:8080/?user=rfriedman");
+		ContentResponse res = client.GET("http://localhost:8080/?user=rfriedman");
+		
 		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
 		Object m = res.getHeaders();

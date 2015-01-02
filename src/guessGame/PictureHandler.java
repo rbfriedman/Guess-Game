@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 
-import com.sun.media.jfxmedia.logging.Logger;
 
-public class PictureHandler extends HttpHandler{
+public class PictureHandler extends MasterHttpHandler{
 
 	public PictureHandler() {
 		super();
