@@ -1,8 +1,5 @@
 package guessGame;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-
 import javax.swing.JPanel;
 
 public class Task {
@@ -10,7 +7,7 @@ public class Task {
 	private final JPanel upperPanel;
 	private final JPanel lowerPanel;
 
-	public Task(JPanel upperPanel, JPanel lowerPanel) throws Exception {
+	public Task(JPanel upperPanel, JPanel lowerPanel) throws ClassNotFoundException {
 
 		this.upperPanel = upperPanel;
 		this.lowerPanel = lowerPanel;
