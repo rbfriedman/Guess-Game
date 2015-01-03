@@ -9,8 +9,8 @@ public enum TaskFactoryType {
 	TaskFactoryType(String description){
 		this.description = description;
 	}
-	@Override
-	public String toString(){
+	
+	public String getDescription(){
 		return description;
 	}
 }

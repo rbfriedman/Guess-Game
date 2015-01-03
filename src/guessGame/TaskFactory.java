@@ -23,7 +23,6 @@ public class TaskFactory {
 	private Task task;
 	private List<Task> challenges;
 	private int currentIndex = 0;
-	private TaskFactoryType tfType;
 
 	public TaskFactory()  {
 		/*
@@ -35,10 +34,10 @@ public class TaskFactory {
 		 */
 
 		challenges = new ArrayList<Task>();
-		challenges.add(new Task(new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
-		challenges.add(new Task(new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
-		challenges.add(new Task(new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
-		challenges.add(new Task(new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
+		challenges.add(new Task(TaskFactoryType.BINARY,new LineMessage(0, 100, 200, 300, Color.BLACK.getRGB(), 30),"line"));
+		challenges.add(new Task(TaskFactoryType.BINARY,new LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10),"line"));
+		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
+		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
 		// upperPanels = getAllFileNames();
 		
 
@@ -59,10 +58,6 @@ public class TaskFactory {
 		return challenges.get(index);
 	}
 
-	public TaskFactoryType getContentType() {
-		// TODO Auto-generated method stub
-		return tfType;
-	}
 	
 	
 

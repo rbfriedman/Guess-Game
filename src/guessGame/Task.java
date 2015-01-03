@@ -9,9 +9,10 @@ public class Task implements Challenge, Serializable{
 
 	private PaintMessage challenge;
 	private String answer;
+	private TaskFactoryType tfType;
 
-	public Task(PaintMessage challenge, String answer)  {
-
+	public Task(TaskFactoryType tfType, PaintMessage challenge, String answer)  {
+		this.tfType = tfType;
 		this.challenge = challenge;
 		this.answer = answer;
 		
@@ -33,6 +34,15 @@ public class Task implements Challenge, Serializable{
 		// TODO Auto-generated method stub
 		return answer;
 	}
+
+
+
+	@Override
+	public TaskFactoryType getTFType() {
+		// TODO Auto-generated method stub
+		return tfType;
+	}
+
 
 
 

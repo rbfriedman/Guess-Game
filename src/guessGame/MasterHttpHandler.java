@@ -17,22 +17,23 @@ import org.eclipse.jetty.client.HttpExchange;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import com.sun.media.jfxmedia.logging.Logger;
+
 
 
 
 public class MasterHttpHandler extends AbstractHandler  {
 	private TaskFactory tf;
+	private HandlerFactory handlerFactory;
 	
 	public MasterHttpHandler(TaskFactory tf){
-		tf = new TaskFactory();
+		this.tf = tf;
+		handlerFactory = new HandlerFactory();
 	}
 		
 	@Override
 	public void handle(String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		 Logger.logMsg(1, "here");
 		String user = request.getParameter("user");
 		System.out.println(request.getAttribute(user));
 		String pwd = request.getParameter("pwd");
@@ -44,25 +45,19 @@ public class MasterHttpHandler extends AbstractHandler  {
 		}
 		*/
 		
-		
-		
-		response.setContentType(tf.toString());
-		response.setStatus(HttpServletResponse.SC_OK);
-		//response.getWriter().println("Hello World");
-		//HttpExchange g = new HttpExchange(null, null, null);
-		
-	
-		ObjectOutputStream out = new ObjectOutputStream(response.getOutputStream());
-		
-		out.writeObject(tf.getTask());
-		out.flush();
-		//response.getWriter().println(
-				//( request.getAttribute("myCanvas")));
-		System.out.println("Handled");
+		Task currentTask = getTask();
+		request.setAttribute("Task", currentTask);
+		handlerFactory.handleTask(currentTask ,target,  baseRequest,
+				request, response);
+
 		
 
 		baseRequest.setHandled(true);
 
+	}
+	
+	private Task getTask(){
+		return tf.getTask();
 	}
 
 }
