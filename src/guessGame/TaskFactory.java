@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JPanel;
-
 public class TaskFactory {
 
 	/*
@@ -13,33 +11,31 @@ public class TaskFactory {
 	 * bottom. this class is responsible for picking out the panels and creating
 	 * a task out of them
 	 */
-	final private Task task;
-	private final List<JPanel> upperPanels;
-	private final List<JPanel> lowerPanels;
+	protected Challenge task;
+	protected List<Challenge> challenges;
+	protected int currentIndex = 0;
 
-	public TaskFactory() throws ClassNotFoundException {
+	public TaskFactory() {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
 		 * 
-		 * //this.upperPanel = upperPanels.get(r.nextInt(upperPanels.size()));
+		 * //this.upperPanel = upperPanelSs.get(r.nextInt(upperPanels.size()));
 		 * //this.lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
 		 */
 
-		this.upperPanels = new ArrayList<JPanel>();
-		this.lowerPanels = new ArrayList<JPanel>();
+		challenges = new ArrayList<Challenge>();
+		/*
+		 * challenges.add(new Task(new LineMessage(0, 100, 200, 300,
+		 * Color.BLACK.getRGB(), 30), "line")); challenges.add(new Task(new
+		 * LineMessage(50, 100, 100, 300, Color.BLACK.getRGB(), 10), "line"));
+		 * challenges.add(new Task(new ShapeMessage(PaintType.RECTANGLE, 100,
+		 * 100, 100, 200, Color.BLACK.getRGB(), 10, true), "rectangle"));
+		 * challenges.add(new Task(new ShapeMessage(PaintType.OVAL, 100, 100,
+		 * 100, 200, Color.BLACK.getRGB(), 10, false), "oval"));
+		 */
 
 		// upperPanels = getAllFileNames();
-		final Random r = new Random();
-		this.upperPanels.add(new UpperPanel_1());
-		this.upperPanels.add(new UpperPanel_2());
-
-		this.lowerPanels.add(new LowerPanel_1());
-
-		final JPanel upperPanel = upperPanels.get(r.nextInt(upperPanels.size()));
-		final JPanel lowerPanel = lowerPanels.get(r.nextInt(lowerPanels.size()));
-
-		this.task = new Task(upperPanel, lowerPanel);
 
 		// upperPanels.add(this.upperPanel);
 		// lowerPanels.add(this.lowerPanel);
@@ -48,16 +44,24 @@ public class TaskFactory {
 
 	}
 
-	public Task getTask() {
-		return task;
+	public Challenge getTask() {
+		if (currentIndex + 1 == challenges.size()) {
+			currentIndex = 0;
+			return challenges.get(currentIndex);
+		} else {
+			return challenges.get(++currentIndex);
+		}
+		/*
+		 * currentIndex = (currentIndex+1)%challenges.size(); return
+		 * challenges.get(currentIndex);
+		 */
 	}
 
-	public List<JPanel> getUpperPanels() {
-		return upperPanels;
-	}
-
-	public List<JPanel> getLowerPanels() {
-		return lowerPanels;
+	public Challenge getRandomTask() {
+		final Random random = new Random();
+		final int index = random.nextInt(challenges.size());
+		/* final int index = (int) (Math.random() * challenges.size() ); */
+		return challenges.get(index);
 	}
 
 }
