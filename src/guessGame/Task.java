@@ -36,14 +36,10 @@ public class Task implements Challenge, Serializable{
 	}
 
 
-
 	@Override
 	public TaskFactoryType getTFType() {
 		// TODO Auto-generated method stub
 		return tfType;
 	}
-
-
-
 
 }

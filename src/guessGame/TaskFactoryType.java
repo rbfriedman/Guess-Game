@@ -1,16 +1,23 @@
 package guessGame;
 
 public enum TaskFactoryType {
-	/*Taken form 
-	 * http://www.freeformatter.com/mime-types-list.html
+
+	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"), TEXT("text/plain");
+	;
+	public String decsription;
+	/*
+	 * Taken form http://www.freeformatter.com/mime-types-list.html
 	 */
-	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"),TEXT("text/plain");
+
 	public String description;
-	TaskFactoryType(String description){
-		this.description = description;
+
+	TaskFactoryType(String description) {
+		this.decsription = description;
 	}
-	
-	public String getDescription(){
+
+	@Override
+	public String toString() {
 		return description;
 	}
 }
+>>>>>>> 27ce45885af938b82b459939d4893f5d7dbc0666

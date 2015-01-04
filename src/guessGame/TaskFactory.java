@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JPanel;
-
 public class TaskFactory {
 
 	/*
@@ -24,7 +22,7 @@ public class TaskFactory {
 	private List<Task> challenges;
 	private int currentIndex = 0;
 
-	public TaskFactory()  {
+	public TaskFactory() {
 		/*
 		 * create a function that will go through the folder to pick all the
 		 * panels by name
@@ -39,7 +37,7 @@ public class TaskFactory {
 		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.RECTANGLE,100, 100, 100, 200, Color.BLACK.getRGB(), 10,true),"rectangle"));
 		challenges.add(new Task(TaskFactoryType.BINARY,new ShapeMessage(PaintType.OVAL,100, 100, 100, 200, Color.BLACK.getRGB(), 10,false),"oval"));
 		// upperPanels = getAllFileNames();
-		
+	
 
 		// upperPanels.add(this.upperPanel);
 		// lowerPanels.add(this.lowerPanel);
@@ -48,18 +46,25 @@ public class TaskFactory {
 
 	}
 
-	public Task getTask() {
-		currentIndex = (currentIndex+1)%challenges.size();
-		return challenges.get(currentIndex);
+
+	public Challenge getTask() {
+		if (currentIndex + 1 == challenges.size()) {
+			currentIndex = 0;
+			return challenges.get(currentIndex);
+		} else {
+			return challenges.get(++currentIndex);
+		}
+		/*
+		 * currentIndex = (currentIndex+1)%challenges.size(); return
+		 * challenges.get(currentIndex);
+		 */
 	}
-	
-	public Task getRandomTask(){
-		int index = (int)(Math.random() * challenges.size() + 1);
+
+	public Challenge getRandomTask() {
+		final Random random = new Random();
+		final int index = random.nextInt(challenges.size());
+		/* final int index = (int) (Math.random() * challenges.size() ); */
 		return challenges.get(index);
 	}
-
-	
-	
-
 
 }
