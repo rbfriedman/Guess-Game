@@ -19,7 +19,7 @@ public class TaskFactory {
 	 * a task out of them
 	 */
 	private Task task;
-	private List<Task> challenges;
+	protected List<Task> challenges;
 	private int currentIndex = 0;
 
 	public TaskFactory() {

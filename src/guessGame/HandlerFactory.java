@@ -21,10 +21,10 @@ public class HandlerFactory {
 		handlerMap.put(TaskFactoryType.TEXT, new TextResponseHandler());
 	}
 	
-	public void handleTask(Task task,String target, Request baseRequest,
+	public void handleTask(Challenge currentTask,String target, Request baseRequest,
 			HttpServletRequest request, HttpServletResponse response){
 		 try {
-			handlerMap.get(task.getTFType()).handle(target,  baseRequest,
+			handlerMap.get(currentTask.getTFType()).handle(target,  baseRequest,
 						request, response);
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block

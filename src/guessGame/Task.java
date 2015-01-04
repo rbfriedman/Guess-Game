@@ -7,7 +7,7 @@ import guessGame.paint.message.PaintMessage;
 
 public class Task implements Challenge, Serializable{
 
-	private PaintMessage challenge;
+	private Object challenge;
 	private String answer;
 	private TaskFactoryType tfType;
 
@@ -16,6 +16,12 @@ public class Task implements Challenge, Serializable{
 		this.challenge = challenge;
 		this.answer = answer;
 		
+	}
+	
+	public Task(ImageTask imageTask){
+		this.tfType = TaskFactoryType.JPEG;
+		this.challenge = imageTask.getChallenge();
+		this.answer = imageTask.getAnswer();
 	}
 
 	public boolean isCorrect() {
