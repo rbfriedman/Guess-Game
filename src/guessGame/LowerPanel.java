@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LowerPanel_1 extends JPanel {
+public class LowerPanel extends JPanel {
 
 	private final JTextField typeAnswer;
 	private final JLabel laber;
 	private final JButton button;
 	private String answer;
 
-	public LowerPanel_1() {
+	public LowerPanel() {
 		this.setAnswer("");
 
 		this.typeAnswer = new JTextField(50);

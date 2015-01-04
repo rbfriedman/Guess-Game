@@ -1,20 +1,21 @@
 package guessGame;
 
-import javax.swing.JPanel;
+import java.io.Serializable;
 
-public class Task {
+import guessGame.paint.message.PaintMessage;
 
-	private final JPanel upperPanel;
-	private final JPanel lowerPanel;
 
-	public Task(JPanel upperPanel, JPanel lowerPanel) throws ClassNotFoundException {
+public class Task implements Challenge, Serializable{
 
-		this.upperPanel = upperPanel;
-		this.lowerPanel = lowerPanel;
-		final String answer = ((UpperPanel) upperPanel).getAnswer();
-		((LowerPanel_1) this.lowerPanel).setAnswer(answer);
+	private PaintMessage challenge;
+	private String answer;
+	private TaskFactoryType tfType;
 
-		new Client(upperPanel, lowerPanel);
+	public Task(TaskFactoryType tfType, PaintMessage challenge, String answer)  {
+		this.tfType = tfType;
+		this.challenge = challenge;
+		this.answer = answer;
+		
 	}
 
 	public boolean isCorrect() {
@@ -22,12 +23,27 @@ public class Task {
 
 	}
 
-	public JPanel getUpperPanel() {
-		return upperPanel;
+	@Override
+	public Object getChallenge() {
+		// TODO Auto-generated method stub
+		return challenge;
 	}
 
-	public JPanel getLowerPanel() {
-		return lowerPanel;
+	@Override
+	public String getAnswer() {
+		// TODO Auto-generated method stub
+		return answer;
 	}
+
+
+
+	@Override
+	public TaskFactoryType getTFType() {
+		// TODO Auto-generated method stub
+		return tfType;
+	}
+
+
+
 
 }
