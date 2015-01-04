@@ -1,8 +1,6 @@
-
 package guessGame.frontend;
 
 import guessGame.Task;
-import guessGame.frontend.LowerPanel;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 
@@ -22,6 +20,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
@@ -35,10 +34,11 @@ public class Client extends JFrame {
 	private static final long serialVersionUID = -6463718980738496419L;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private UpperPanel upperPanel;
+	private JPanel upperPanel;
 	private LowerPanel lowerPanel;
 	private JButton nextButton;
 	private HttpClient client;
+	private TaskTypeCardLayout ttCardLayout;
 
 	public Client() throws Exception {
 
@@ -47,15 +47,17 @@ public class Client extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 
-		this.upperPanel = new UpperPanel();
-		this.upperPanel.setPreferredSize(new Dimension(600, 600));
-		this.add(upperPanel, BorderLayout.NORTH);
+		this.upperPanel = new JPanel();
 		
 		this.lowerPanel = new LowerPanel();
 		this.nextButton = new JButton("Next");
 		this.nextButton.addActionListener(new NextTaskListener());
 		lowerPanel.add(nextButton, BorderLayout.WEST);
+		this.upperPanel.setPreferredSize(new Dimension(600, 600));
 		lowerPanel.setPreferredSize(new Dimension(600, 100));
+		ttCardLayout = new TaskTypeCardLayout(this.lowerPanel);
+		this.upperPanel.setLayout(ttCardLayout);
+		this.add(upperPanel, BorderLayout.NORTH);
 		this.add(lowerPanel, BorderLayout.SOUTH);
 		
 		System.out.println("works? ");
@@ -69,7 +71,7 @@ public class Client extends JFrame {
 	}
 
 	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
-		this.upperPanel.repaint(new ClearMessage());
+		//this.upperPanel.repaint(new ClearMessage());
 
 		//Request req = client.POST("http://localhost:8080/?user=rfriedman");
 		ContentResponse res = client.GET("http://localhost:8080/?user=rfriedman");
@@ -88,7 +90,7 @@ public class Client extends JFrame {
 					new ByteArrayInputStream(res.getContent()));
 			obj = inStream.readObject();
 
-			addPaintTask(obj);
+			addTask(obj, headers.getField("Content-Type"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,19 +104,18 @@ public class Client extends JFrame {
 	}
 
 	private void addPaintTask(Object obj) {
-		this.upperPanel.removeAll();
-		Task g = (Task) obj;
-		PaintMessage h = (PaintMessage) g.getChallenge();
-		String answer = g.getAnswer();
-		this.lowerPanel.setAnswer(answer);
-		this.upperPanel.repaint(h);
+		//this.upperPanel.removeAll();
+		
 		this.repaint();
 	}
+	
 
-	private void addTask(Object obj) {
+	private void addTask(Object obj, HttpField header) {
 		// TODO Auto-generated method stub
-		Task g = (Task) obj;
-		PaintMessage h = (PaintMessage) g.getChallenge();
+		this.upperPanel.removeAll();
+		ttCardLayout.show(upperPanel, obj,header.getValue());
+		upperPanel.repaint();
+		this.repaint();
 
 	}
 	

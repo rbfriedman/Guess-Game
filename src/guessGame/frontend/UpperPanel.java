@@ -3,26 +3,48 @@ package guessGame.frontend;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-public class UpperPanel extends JPanel {
+public class UpperPanel extends JPanel implements TaskGenerator{
 
-	private static final long serialVersionUID = 2646018017326072535L;
-	private final String answer = "rectangle";
-	private PaintMessage pm = new ClearMessage();
+	protected LowerPanel lowerPanel;
+	
+
+	public UpperPanel(LowerPanel lowerPanel) {
+		// lowerPanel content is determined by upper panel
+		this.lowerPanel = lowerPanel;
+		setPreferredSize(new Dimension(500, 400));
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		this.pm.apply((Graphics2D) g);
-		System.out.println(pm.toString());
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		System.out.println("Paintng...");
+	}
+
+	@Override
+	public void addTaskContent(Object content) {
+		// TODO Auto-generated method stub
 		
 	}
-	
-	public void repaint(PaintMessage pm){
-		this.pm  = pm;
+
+	public void setTaskSolution() {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
+
+
+	@Override
+	public void setTaskSolution(String solution) {
+		lowerPanel.setAnswer(solution);
+		
+	}
+
 }

@@ -41,6 +41,7 @@ public class TaskTypeCardLayout extends CardLayout {
 		UpperPanel currentPanel =panelMap.get(value);
 		currentPanel.addTaskContent(obj);
 		currentPanel.repaint();
+		panelMap.put(value, currentPanel);
 		super.show(upperPanel, value);
 		currentPanel.repaint();
 	}
