@@ -29,4 +29,10 @@ public class ImageTask extends JComponent implements Challenge {
 		return image;
 	}
 
+	@Override
+	public TaskFactoryType getTFType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

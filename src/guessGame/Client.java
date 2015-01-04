@@ -1,5 +1,6 @@
 package guessGame;
 
+import guessGame.UpperPanel;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 
@@ -12,11 +13,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-<<<<<<< HEAD
 import java.util.Enumeration;
 import java.util.Iterator;
-=======
->>>>>>> 27ce45885af938b82b459939d4893f5d7dbc0666
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -26,11 +24,9 @@ import javax.swing.JFrame;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
-<<<<<<< HEAD
 import org.eclipse.jetty.http.HttpField;
 import org.eclipse.jetty.http.HttpFields;
-=======
->>>>>>> 27ce45885af938b82b459939d4893f5d7dbc0666
+
 
 public class Client extends JFrame {
 

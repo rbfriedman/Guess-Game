@@ -19,5 +19,9 @@ public enum TaskFactoryType {
 	public String toString() {
 		return description;
 	}
+
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return description;
+	}
 }
->>>>>>> 27ce45885af938b82b459939d4893f5d7dbc0666
