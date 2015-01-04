@@ -1,5 +1,8 @@
 package guessGame;
 
+import guessGame.LowerPanel;
+import guessGame.Task;
+import guessGame.UpperPanel;
 import guessGame.paint.message.ClearMessage;
 import guessGame.paint.message.PaintMessage;
 
@@ -12,6 +15,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -21,6 +26,9 @@ import javax.swing.JFrame;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
+import org.eclipse.jetty.http.HttpField;
+import org.eclipse.jetty.http.HttpFields;
+
 
 public class Client extends JFrame {
 
@@ -62,9 +70,14 @@ public class Client extends JFrame {
 
 	private void readInTask(HttpClient client) throws InterruptedException, ExecutionException, TimeoutException {
 		this.upperPanel.repaint(new ClearMessage());
-		Request req = client.POST("http://localhost:8080/?user=rfriedman");
+
+		//Request req = client.POST("http://localhost:8080/?user=rfriedman");
 		ContentResponse res = client.GET("http://localhost:8080/?user=rfriedman");
-		
+		HttpFields headers =  res.getHeaders();
+		Iterator<HttpField> iter = headers.iterator();
+		while(iter.hasNext()){
+			System.out.println(iter.next());
+		}
 		System.out.println(res.getRequest().getAttributes());
 		System.out.println(res.getRequest().getAttributes());
 		Object m = res.getHeaders();

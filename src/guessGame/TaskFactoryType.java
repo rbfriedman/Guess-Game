@@ -1,6 +1,7 @@
 package guessGame;
 
 public enum TaskFactoryType {
+
 	BINARY("application/octet-stream"), JPEG("image/jpeg"), GIF("image/gif"), TEXT("text/plain");
 	;
 	public String decsription;
@@ -12,11 +13,15 @@ public enum TaskFactoryType {
 
 	TaskFactoryType(String description) {
 		this.decsription = description;
-		this.description = description;
 	}
 
 	@Override
 	public String toString() {
+		return description;
+	}
+
+	public String getDescription() {
+		// TODO Auto-generated method stub
 		return description;
 	}
 }
